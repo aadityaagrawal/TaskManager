@@ -198,4 +198,11 @@ public class TaskController {
         responseBody.put("message", response);
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
+
+    @GetMapping("/tasks/stats")
+    ResponseEntity<Map<String, Object>> getTaskStats() {
+        logger.info("Fetching the task statistics.............");
+        Map<String,Object> response = taskService.getTaskStatusAndPriorityCount();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -18,5 +19,11 @@ public interface TaskRepo extends JpaRepository<TaskEntity, Long> {
 
     @Query("SELECT t.status from TaskEntity t WHERE t.id = :ID")
     Status findStatusById(@Param("ID") Long id);
+
+    @Query("select t.status, t.priority , count(*) from TaskEntity t group by t.status, t.priority")
+    List<Object[]> getTaskStatusAndPriorityCount();
+
+    Long countByDueDateBeforeAndStatusNot(LocalDate dueDate, Status status);
+    Long countByDueDateAfterAndStatusNot(LocalDate dueDate, Status status);
 
 }
