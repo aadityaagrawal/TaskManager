@@ -22,4 +22,5 @@ public class TaskModel {
     private LocalDate dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }
