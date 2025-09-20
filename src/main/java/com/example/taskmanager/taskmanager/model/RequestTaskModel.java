@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,6 +29,6 @@ public class RequestTaskModel {
     private Priority priority;
 
     @NotNull(message = "Due date cannot be null")
-    @Schema(description = "Due date of the task in YYYY-MM-DD format", example = "YYYY-MM-DD")
+    @Schema(description = "Due date of the task in YYYY-MM-DD format", example = "YYYY-MM-DDTHH:MM:SS")
     private LocalDateTime dueDate;
 }

@@ -8,7 +8,7 @@ import com.example.taskmanager.taskmanager.model.RequestTaskModel;
 import com.example.taskmanager.taskmanager.model.TaskModel;
 import com.example.taskmanager.taskmanager.repository.TaskRepo;
 import com.example.taskmanager.taskmanager.service.TaskService;
-import com.example.taskmanager.taskmanager.utility.HelperClass;
+import com.example.taskmanager.taskmanager.utility.MapperClass;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,13 +16,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.example.taskmanager.taskmanager.utility.HelperClass.*;
+import static com.example.taskmanager.taskmanager.utility.MapperClass.*;
 
 
 @Service
@@ -91,7 +90,7 @@ public class TaskServiceImpl implements TaskService {
     // --- Pagination & Filtering ---
     public Page<TaskModel> findAllData(Status status, Boolean dueDate, Priority priority, Pageable pageable) {
         Page<TaskEntity> entitiesPage = taskRepo.findAll(status, priority, dueDate, pageable);
-        return entitiesPage.map(HelperClass::mapToModel);
+        return entitiesPage.map(MapperClass::mapToModel);
     }
 
     // --- Statistics ---
@@ -101,5 +100,11 @@ public class TaskServiceImpl implements TaskService {
         stats.put("Overdue_Count", taskRepo.countByDueDateBeforeAndStatusNot(LocalDateTime.now(), Status.COMPLETED));
         stats.put("Detailed_Stats", taskRepo.getTaskStatusAndPriorityCount());
         return stats;
+    }
+    // --- Validation ---
+    public void validateDueDate(LocalDateTime dueDate) {
+        if (dueDate != null && dueDate.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Due date cannot be before today");
+        }
     }
 }

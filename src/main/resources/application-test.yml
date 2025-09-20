@@ -14,5 +14,3 @@ h2:
 logging:
   level:
     root: WARN
-
-url: jdbc:h2:mem:testdb

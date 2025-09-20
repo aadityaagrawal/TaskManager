@@ -4,10 +4,9 @@ import com.example.taskmanager.taskmanager.entity.TaskEntity;
 import com.example.taskmanager.taskmanager.model.RequestTaskModel;
 import com.example.taskmanager.taskmanager.model.TaskModel;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class HelperClass {
+public class MapperClass {
     // --- Mapper Helpers ---
     public static TaskModel mapToModel(TaskEntity entity) {
         TaskModel model = new TaskModel();
@@ -30,12 +29,5 @@ public class HelperClass {
         entity.setPriority(taskModel.getPriority());
         entity.setDueDate(taskModel.getDueDate());
         return entity;
-    }
-
-    // --- Validation ---
-    public static void validateDueDate(LocalDateTime dueDate) {
-        if (dueDate != null && dueDate.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Due date cannot be before today");
-        }
     }
 }

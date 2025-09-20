@@ -2,12 +2,9 @@ package com.example.taskmanager.taskmanager.model;
 
 import com.example.taskmanager.taskmanager.enums.Priority;
 import com.example.taskmanager.taskmanager.enums.Status;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
