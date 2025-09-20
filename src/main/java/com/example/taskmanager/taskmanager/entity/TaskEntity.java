@@ -32,7 +32,7 @@ public class TaskEntity {
     @Column(name = "priority", nullable = false)
     private Priority priority;
     @Column(name = "due_date", nullable = false)
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

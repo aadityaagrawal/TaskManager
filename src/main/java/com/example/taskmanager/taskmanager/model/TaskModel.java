@@ -19,7 +19,7 @@ public class TaskModel {
     private String description;
     private Status status;
     private Priority priority;
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

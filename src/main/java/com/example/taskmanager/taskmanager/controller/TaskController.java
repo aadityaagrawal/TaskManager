@@ -39,22 +39,12 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @Operation(summary = "Retrieve all tasks", description = "Get a paginated list of tasks, optionally filtered by status, priority, or due date")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tasks retrieved successfully", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = TaskModel.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid request parameters", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
-    })
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Tasks retrieved successfully", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = TaskModel.class))), @ApiResponse(responseCode = "400", description = "Invalid request parameters", content = @Content), @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllTasks(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
-            @RequestParam(required = false) Status status,
-            @RequestParam(required = false) Priority priority,
-            @RequestParam(required = false) Boolean dueDate
-    ) {
+    public ResponseEntity<Map<String, Object>> getAllTasks(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, @RequestParam(required = false) Status status, @RequestParam(required = false) Priority priority, @RequestParam(required = false) Boolean dueDate) {
         logger.info("Fetching all tasks");
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("dueDate").ascending());
+        Pageable pageable = PageRequest.of(page, size);
         Page<TaskModel> tasksPage = taskService.findAllData(status, dueDate, priority, pageable);
 
         Map<String, Object> response = new HashMap<>();
@@ -92,10 +82,7 @@ public class TaskController {
 
     @Operation(summary = "Update task details")
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateTask(
-            @PathVariable Long id,
-            @Valid @RequestBody RequestTaskModel requestTaskModel
-    ) {
+    public ResponseEntity<Map<String, Object>> updateTask(@PathVariable Long id, @Valid @RequestBody RequestTaskModel requestTaskModel) {
         logger.info("Updating task with ID: {}", id);
 
         String message = taskService.updateTask(id, requestTaskModel);
@@ -107,10 +94,7 @@ public class TaskController {
 
     @Operation(summary = "Update task status")
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Map<String, Object>> patchStatus(
-            @PathVariable Long id,
-            @RequestParam Status status
-    ) {
+    public ResponseEntity<Map<String, Object>> patchStatus(@PathVariable Long id, @RequestParam Status status) {
         logger.info("Updating status for task ID: {}", id);
 
         String message = taskService.patchStatus(id, status);

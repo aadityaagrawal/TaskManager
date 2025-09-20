@@ -4,7 +4,7 @@ CREATE TABLE task (
     description VARCHAR(500),
     status VARCHAR(255),
     priority VARCHAR(255),
-    due_date date,
+    due_date TIMESTAMP,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     UNIQUE (title, status)

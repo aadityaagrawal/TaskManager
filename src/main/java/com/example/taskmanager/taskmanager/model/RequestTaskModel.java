@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,5 +31,5 @@ public class RequestTaskModel {
 
     @NotNull(message = "Due date cannot be null")
     @Schema(description = "Due date of the task in YYYY-MM-DD format", example = "YYYY-MM-DD")
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
 }
