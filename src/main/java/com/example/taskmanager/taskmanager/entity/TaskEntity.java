@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq_gen")
-    @SequenceGenerator(name = "task_seq_gen", sequenceName = "task_seq", allocationSize = 10, initialValue = 11)
+    @SequenceGenerator(name = "task_seq_gen", sequenceName = "task_seq", allocationSize = 10, initialValue = 100)
     private Long id;
     @Column(name = "title", nullable = false, length = 100)
     private String title;
@@ -31,7 +31,7 @@ public class TaskEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", nullable = false)
     private Priority priority;
-    @Column(name = "due_date")
+    @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
